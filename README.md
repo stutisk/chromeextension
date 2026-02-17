@@ -35,8 +35,74 @@ Highlights are stored using Chrome’s internal storage system, not `localStorag
 
 ---
 
-## 📦 Installation
+## 🚀 Installation & Local Setup
 
-1. Clone this repository  
-   ```bash
-   git clone https://github.com/stutisk/chromeextension.git
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/stutisk/chromeextension.git
+cd chromeextension
+```
+
+---
+
+### 2️⃣ Open Chrome Extensions Page
+
+Open Google Chrome and go to:
+
+```
+chrome://extensions/
+```
+
+---
+
+
+### 3️⃣ Enable Developer Mode
+
+- Toggle **Developer mode** (top right corner)
+
+---
+
+### 4️⃣ Load the Extension
+
+- Click **Load unpacked**
+- Select the cloned project folder
+- The extension will now be installed in your browser
+
+---
+
+## 🧪 How to Test the Extension in Chrome
+
+### ✅ Step 1: Open Any Website
+Open any webpage (Medium, Dev.to, documentation site, blog, etc.)
+
+---
+
+### ✅ Step 2: Select Text
+Highlight any text on the page using your mouse.
+
+---
+
+### ✅ Step 3: Save Highlight
+Click the extension icon and save the selected text.
+
+---
+
+### ✅ Step 4: Verify Highlight
+- Open the extension popup again
+- Confirm the highlight appears in the list
+- Try deleting the highlight
+- Confirm it is removed properly
+
+---
+
+## 🔄 Reload After Code Changes
+
+Whenever you modify the extension code:
+
+1. Go to `chrome://extensions/`
+2. Click the **Reload** button on your extension
+3. Refresh the webpage you are testing on
+
+---
+
