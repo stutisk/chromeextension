@@ -106,3 +106,16 @@ Whenever you modify the extension code:
 
 ---
 
+## 🌍 Open Source
+
+This project is open source and open to contributions.
+
+If you’d like to improve it:
+
+1. Fork the repository
+2. Create a new feature branch
+3. Submit a Pull Request
+
+Please make sure your code is clean and well documented.
+
+
