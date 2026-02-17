@@ -20,6 +20,9 @@ This makes it easy to collect useful text or notes while browsing and review the
 - **Delete Highlights** — Remove saved items individually or clear all
 
 ---
+## 🚀 Video Walkthrough
+https://www.loom.com/share/9cc0653c26a44f4cb0a5371f23547b3a
+
 
 ## 🚀 How It Works
 
