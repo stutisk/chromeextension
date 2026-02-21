@@ -23,7 +23,7 @@ function displayHighlightPopup(text, event) {
   const popupWidth = 130;
   const popupHeight = 32;
   let posX = event.pageX;
-  let posY = event.pageY;
+  let posY = event.pageY - popupHeight - 20;
 
   if (posX + popupWidth > window.scrollX + window.innerWidth) {
     posX = window.scrollX + window.innerWidth - popupWidth - 10;
