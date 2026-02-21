@@ -5,7 +5,8 @@
   "description": "Highlight text on any website and save it locally.",
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": "highlighter.png"
   },
   "background": {
     "service_worker": "background.js"
