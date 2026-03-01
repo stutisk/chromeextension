@@ -1,28 +1,36 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.local.get("highlights", (result) => {
-    if (!result.highlights) {
-      chrome.storage.local.set({ highlights: [] });
+importScripts("constants.js");
+
+const { STORAGE_KEYS, MESSAGE_TYPES } = EXTENSION_CONSTANTS;
+
+function initStorage() {
+  chrome.storage.local.get(STORAGE_KEYS.HIGHLIGHTS, (result) => {
+    if (!result[STORAGE_KEYS.HIGHLIGHTS]) {
+      chrome.storage.local.set({ [STORAGE_KEYS.HIGHLIGHTS]: [] });
     }
   });
-});
+}
+
+function saveHighlight(text, sourceUrl, sendResponse) {
+  chrome.storage.local.get(STORAGE_KEYS.HIGHLIGHTS, (result) => {
+    const current = result[STORAGE_KEYS.HIGHLIGHTS] || [];
+    const newHighlight = {
+      text,
+      url: sourceUrl,
+      timestamp: Date.now(),
+    };
+    const updated = [...current, newHighlight];
+    chrome.storage.local.set({ [STORAGE_KEYS.HIGHLIGHTS]: updated }, () => {
+      sendResponse({ success: true });
+    });
+  });
+}
+
+chrome.runtime.onInstalled.addListener(initStorage);
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "SAVE_HIGHLIGHT") {
-    chrome.storage.local.get("highlights", (result) => {
-      const currentHighlights = result.highlights || [];
-      const newHighlight = {
-        text: message.text,
-        url: sender.tab?.url || window.location.href,
-        timestamp: Date.now(),
-      };
-
-      const updatedHighlights = [...currentHighlights, newHighlight];
-
-      chrome.storage.local.set({ highlights: updatedHighlights }, () => {
-        sendResponse({ success: true });
-      });
-    });
-
-    return true;
+  if (message.type === MESSAGE_TYPES.SAVE_HIGHLIGHT) {
+    const sourceUrl = sender.tab?.url || (typeof window !== "undefined" ? window.location.href : "");
+    saveHighlight(message.text, sourceUrl, sendResponse);
+    return true; // keep channel open for async sendResponse
   }
 });
