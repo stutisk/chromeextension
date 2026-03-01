@@ -1,11 +1,10 @@
-
-import './App.css';
-import { Popup } from './ChromeExtension/Popup';
+import "./App.css";
+import { Popup } from "./ChromeExtension/Popup";
 
 function App() {
   return (
     <div className="App">
-      <Popup/>
+      <Popup />
     </div>
   );
 }

@@ -1,21 +1,22 @@
-/* global chrome */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MdDelete } from "react-icons/md";
+import { getHighlights, setHighlights } from "./storage";
 
-export const Popup = () => {
-  const [highlights, setHighlights] = useState([]);
+export function Popup() {
+  const [highlights, setHighlightsState] = useState([]);
 
   useEffect(() => {
-    chrome.storage.local.get(["highlights"], (result) => {
-      setHighlights(result.highlights || []);
-    });
+    getHighlights(setHighlightsState);
   }, []);
 
-  const removeHighlight = (index) => {
-    const updatedList = highlights.filter((_, i) => i !== index);
-    setHighlights(updatedList);
-    chrome.storage.local.set({ highlights: updatedList });
-  };
+  const removeHighlight = useCallback(
+    (index) => {
+      const updated = highlights.filter((_, i) => i !== index);
+      setHighlightsState(updated);
+      setHighlights(updated);
+    },
+    [highlights]
+  );
 
   return (
     <div className="p-4 w-full bg-white rounded-lg shadow-md">
@@ -27,16 +28,18 @@ export const Popup = () => {
         {highlights.length > 0 ? (
           highlights.map((highlight, idx) => (
             <div
-              key={idx}
-              className="flex justify-between items-center p-2   hover:bg-gray-50 transition"
+              key={`${highlight.timestamp}-${idx}`}
+              className="flex justify-between items-center p-2 hover:bg-gray-50 transition"
             >
               <p className="text-sm text-gray-700 break-words">
                 {highlight.text}
               </p>
               <button
+                type="button"
                 className="ml-2 px-2 py-1 bg-red-500 hover:bg-red-600 text-white text-xs rounded flex items-center justify-center"
                 onClick={() => removeHighlight(idx)}
                 title="Delete highlight"
+                aria-label="Delete highlight"
               >
                 <MdDelete />
               </button>
@@ -50,4 +53,4 @@ export const Popup = () => {
       </div>
     </div>
   );
-};
+}
