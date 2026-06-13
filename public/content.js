@@ -46,7 +46,7 @@ function showSaveHighlightPopup(text, event) {
   popup.textContent = "Save Highlight";
   applyStyles(popup, createPopupStyles());
 
-  const popupWidth = 130;
+  const popupWidth = 160;
   const popupHeight = 32;
   const { x, y } = clampPopupPosition(
     event.pageX,
